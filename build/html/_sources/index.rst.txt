@@ -1,0 +1,120 @@
+.. OpenRMF OSS documentation master file
+
+=======================================
+OpenRMF OSS Documentation
+=======================================
+
+OpenRMF\ :sup:`®` OSS is an open-source, web-based platform for managing DoD STIG
+checklists, DISA/OpenSCAP/Nessus SCAP scans, and Nessus/ACAS patch data. It
+generates NIST compliance reports, Plans of Action and Milestones (POA&M), Risk
+Assessment Reports (RAR), and Test Plan summaries from a single browser-based
+interface.
+
+The project is built on a microservices architecture using .NET Core, MongoDB,
+NATS messaging, NGINX, and Keycloak, deployed through Docker Compose or
+Kubernetes.
+
+.. note::
+
+   This documentation targets developers and contributors working with the
+   OpenRMF OSS codebase. It covers architecture, API surface, deployment,
+   development workflows, security, and observability.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting Started
+
+   overview
+   minimum-requirements
+   glossary
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Architecture
+
+   architecture/index
+   architecture/microservices
+   architecture/messaging
+   architecture/data-layer
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   api/index
+   api/read-api
+   api/save-api
+   api/upload-api
+   api/template-api
+   api/scoring-api
+   api/controls-api
+   api/compliance-api
+   api/audit-api
+   api/reports-api
+   api/external-score-api
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Deployment
+
+   deployment/index
+   deployment/docker-compose
+   deployment/kubernetes
+   deployment/airgapped
+   deployment/https
+   deployment/upgrading
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer Guide
+
+   developer/index
+   developer/local-setup
+   developer/building
+   developer/testing
+   developer/contributing
+   developer/repository-map
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User Guide
+
+   user-guide/index
+   user-guide/keycloak-setup
+   user-guide/system-packages
+   user-guide/checklists
+   user-guide/scap-scans
+   user-guide/reports
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Security
+
+   security/index
+   security/rbac
+   security/hardening
+   security/https-configuration
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Observability
+
+   observability/index
+   observability/prometheus
+   observability/grafana-dashboards
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+
+   reference/software-bom
+   reference/nats-subjects
+   reference/environment-variables
+   reference/changelog
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`

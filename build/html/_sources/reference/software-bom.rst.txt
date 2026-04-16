@@ -1,0 +1,99 @@
+========================
+Software Bill of Materials
+========================
+
+This page lists all third-party components and their versions used in the OpenRMF
+OSS stack.
+
+Container Runtime (Required)
+=============================
+
+One of: Docker (20.10.7+), Podman (4.2.0+ with podman-compose 1.0.3+), Docker
+Desktop, or any OCI-compliant container engine.
+
+Core Application Components
+=============================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 20 55
+
+   * - Component
+     - Version
+     - Purpose
+   * - .NET Core / ASP.NET
+     - 8.0
+     - Runtime for all API and messaging services
+   * - MongoDB
+     - 6.x
+     - Primary data store for checklists, scores, reports, templates, audits
+   * - NATS
+     - 2.x
+     - Message bus for inter-service communication
+   * - NGINX
+     - 1.27+
+     - Reverse proxy and static file server for the web frontend
+   * - Keycloak
+     - 26.1.0+
+     - Identity and access management (OpenID Connect)
+   * - PostgreSQL
+     - 16
+     - Backing database for Keycloak
+
+Observability Components
+=========================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 20 55
+
+   * - Component
+     - Version
+     - Purpose
+   * - Prometheus
+     - 2.55.x
+     - Metrics collection and time-series storage
+   * - Grafana
+     - 10.x
+     - Metrics visualization and dashboards
+
+Frontend Dependencies
+=====================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Component
+     - Purpose
+   * - Pike Admin Bootstrap 4
+     - CSS/JS framework for the web UI
+   * - jQuery
+     - JavaScript library used by the Bootstrap theme
+   * - Jekyll
+     - Static site generator for the ``/help/`` documentation section
+
+.NET Libraries (API Services)
+===============================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Library
+     - Purpose
+   * - prometheus-net
+     - Prometheus metrics instrumentation for ASP.NET Core
+   * - NATS.Client
+     - .NET client library for NATS messaging
+   * - MongoDB.Driver
+     - .NET driver for MongoDB database access
+   * - Jaeger Client (C#)
+     - Distributed tracing instrumentation (optional)
+
+Licensing
+=========
+
+OpenRMF OSS is licensed under GPL-3.0. Third-party components are used under their
+respective licenses (Apache 2.0, MIT, BSD, etc.). Refer to each component's
+documentation for specific licensing terms.

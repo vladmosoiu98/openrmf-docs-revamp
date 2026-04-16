@@ -1,0 +1,100 @@
+==================
+HTTPS Configuration
+==================
+
+By default, OpenRMF OSS runs over HTTP on port 8080. For production deployments,
+TLS should be enabled using NGINX as the SSL termination point.
+
+.. warning::
+
+   Take a backup or snapshot of your configuration before making these changes.
+   Stop all services with ``./stop.sh`` before editing configuration files.
+
+Step 1: Generate or Obtain Certificates
+=========================================
+
+**Self-signed certificate** (for testing or internal use)::
+
+   mkdir -p ./ssl/certs ./ssl/private
+
+   openssl req -x509 -out ./ssl/certs/myserver.crt \
+       -keyout ./ssl/private/myserver.key \
+       -newkey rsa:2048 -nodes -sha256
+
+**Diffie-Hellman parameters** (recommended for enhanced security)::
+
+   openssl dhparam -out ./ssl/certs/dhparam.pem 2048
+
+**Official certificates**: place your CA-signed certificate and private key in the
+``./ssl/certs/`` and ``./ssl/private/`` directories respectively.
+
+Set permissions::
+
+   chmod -R 755 ssl
+
+Step 2: Update Docker Compose
+================================
+
+Modify the ``openrmf-web`` service in ``docker-compose.yml``:
+
+- Change the port mapping from ``8080:8080`` to ``8443:8443``
+- Add a volume mount for the SSL directory::
+
+     volumes:
+       - ./ssl/:/etc/ssl/:Z
+
+If using self-signed certificates, add to the ``nginx-metrics`` service::
+
+     environment:
+       - SSL_VERIFY=false
+
+Step 3: Update NGINX Configuration
+====================================
+
+Edit ``nginx.conf`` and replace the HTTP listener with HTTPS:
+
+**Before:**
+
+::
+
+   listen 8080;
+
+**After:**
+
+::
+
+   listen 8443 http2 ssl;
+
+   ssl_protocols TLSv1.2;
+   ssl_certificate /etc/ssl/certs/myserver.crt;
+   ssl_certificate_key /etc/ssl/private/myserver.key;
+   ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+Update any Keycloak proxy headers to reference port 8443.
+
+Step 4: Update Keycloak Redirect URIs
+========================================
+
+Before restarting, update the Keycloak client configuration:
+
+1. Log in to the Keycloak admin console.
+2. Navigate to **Clients** → **openrmf**.
+3. Add ``https://<your-ip>:8443/*`` to **Valid redirect URIs**.
+4. Add ``https://<your-ip>:8443/*`` to **Valid post logout redirect URIs**.
+5. Click **Save**.
+
+Step 5: Update Environment Configuration
+==========================================
+
+Edit the ``.env`` file and change the JWT authority URL from HTTP to HTTPS::
+
+   JWTAUTHORITY=https://<your-ip>:8443/auth/realms/openrmf
+
+Step 6: Restart
+================
+
+::
+
+   ./start.sh
+
+Access OpenRMF at ``https://<your-ip>:8443/``.

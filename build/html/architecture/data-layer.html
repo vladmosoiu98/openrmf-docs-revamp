@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Layer &mdash; OpenRMF OSS 1.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=754f84b7"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api/index.html" />
+    <link rel="prev" title="NATS Messaging Architecture" href="messaging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenRMF OSS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-is-openrmf-oss">What is OpenRMF OSS?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#core-capabilities">Core Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#project-history">Project History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#related-projects">Related Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../minimum-requirements.html">Minimum Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../minimum-requirements.html#software-requirements">Software Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../minimum-requirements.html#container-runtime">Container Runtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../minimum-requirements.html#operating-system">Operating System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../minimum-requirements.html#hardware-requirements">Hardware Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../minimum-requirements.html#storage-considerations">Storage Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../minimum-requirements.html#network-requirements">Network Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../minimum-requirements.html#browser-requirements">Browser Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#design-principles">Design Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#high-level-component-diagram">High-Level Component Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#component-categories">Component Categories</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="microservices.html">Microservices Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#api-services">API Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-read">openrmf-api-read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-save">openrmf-api-save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-upload">openrmf-api-upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-template">openrmf-api-template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-scoring">openrmf-api-scoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-controls">openrmf-api-controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-compliance">openrmf-api-compliance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-audit">openrmf-api-audit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-api-reports">openrmf-api-reports</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#messaging-services">Messaging Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-score">openrmf-msg-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-reports">openrmf-msg-reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-system">openrmf-msg-system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-compliance">openrmf-msg-compliance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-controls">openrmf-msg-controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-template">openrmf-msg-template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-audit">openrmf-msg-audit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-msg-checklist">openrmf-msg-checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#web-frontend">Web Frontend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-web">openrmf-web</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="microservices.html#supporting-repositories">Supporting Repositories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-docs">openrmf-docs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-at-aws">openrmf-at-aws</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-ext-api-score">openrmf-ext-api-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microservices.html#openrmf-io">openrmf-io</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="messaging.html">NATS Messaging Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#why-nats">Why NATS?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#communication-patterns">Communication Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="messaging.html#request-reply">Request/Reply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="messaging.html#publish-subscribe">Publish/Subscribe</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#subject-naming-conventions">Subject Naming Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#message-payloads">Message Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#connection-management">Connection Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messaging.html#error-handling">Error Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mongodb-databases">MongoDB Databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#artifacts-database">Artifacts Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scores-database">Scores Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reports-database">Reports Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#templates-database">Templates Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#audit-database">Audit Database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#default-credentials">Default Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#postgresql-keycloak">PostgreSQL (Keycloak)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#persistent-volumes">Persistent Volumes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-and-restore">Backup and Restore</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#accessing-api-documentation">Accessing API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#api-service-summary">API Service Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#common-response-codes">Common Response Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/read-api.html">Read API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/read-api.html#endpoints">Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/read-api.html#artifact-operations">Artifact Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/read-api.html#system-operations">System Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/read-api.html#nessus-operations">Nessus Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/read-api.html#document-generation">Document Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/read-api.html#counts">Counts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/read-api.html#nats-integration">NATS Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/save-api.html">Save API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/save-api.html#endpoints">Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/save-api.html#artifact-crud">Artifact CRUD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/save-api.html#checklist-upgrade">Checklist Upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/save-api.html#system-package-crud">System Package CRUD</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/save-api.html#nats-events-published">NATS Events Published</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/upload-api.html">Upload API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/upload-api.html#supported-file-formats">Supported File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/upload-api.html#nats-events-published">NATS Events Published</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/upload-api.html#nats-requests-made">NATS Requests Made</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/template-api.html">Template API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/template-api.html#endpoints">Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/template-api.html#template-matching">Template Matching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/scoring-api.html">Scoring API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/scoring-api.html#score-breakdown">Score Breakdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/controls-api.html">Controls API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/controls-api.html#endpoints">Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/controls-api.html#nats-integration">NATS Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/compliance-api.html">Compliance API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/compliance-api.html#how-compliance-mapping-works">How Compliance Mapping Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/compliance-api.html#nats-subjects">NATS Subjects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/audit-api.html">Audit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/audit-api.html#typical-audit-events">Typical Audit Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reports-api.html">Reports API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/reports-api.html#available-reports">Available Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/reports-api.html#data-freshness">Data Freshness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/external-score-api.html">External Score API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/external-score-api.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/external-score-api.html#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html">Docker Compose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-2-configure-the-environment">Step 2: Configure the Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-3-start-the-stack">Step 3: Start the Stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-4-configure-keycloak">Step 4: Configure Keycloak</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-5-configure-keycloak-redirect-uris">Step 5: Configure Keycloak Redirect URIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-6-create-and-configure-users">Step 6: Create and Configure Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-7-log-in">Step 7: Log In</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#step-8-begin-using-openrmf">Step 8: Begin Using OpenRMF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#stopping-and-restarting">Stopping and Restarting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker-compose.html#service-composition">Service Composition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html">Kubernetes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/kubernetes.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/kubernetes.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/kubernetes.html#helm-chart-structure">Helm Chart Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/kubernetes.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/kubernetes.html#post-deployment">Post-Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html">Air-Gapped Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#step-1-pull-images-on-a-connected-machine">Step 1: Pull Images on a Connected Machine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#step-2-save-images-to-archive">Step 2: Save Images to Archive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#step-3-transfer-to-air-gapped-host">Step 3: Transfer to Air-Gapped Host</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#step-4-load-images">Step 4: Load Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/airgapped.html#step-5-deploy">Step 5: Deploy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html">HTTPS Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-1-generate-or-obtain-certificates">Step 1: Generate or Obtain Certificates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-2-update-docker-compose">Step 2: Update Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-3-update-nginx-configuration">Step 3: Update NGINX Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-4-update-keycloak-redirect-uris">Step 4: Update Keycloak Redirect URIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-5-update-environment-configuration">Step 5: Update Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/https.html#step-6-restart">Step 6: Restart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/upgrading.html">Upgrading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/upgrading.html#general-upgrade-process">General Upgrade Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/upgrading.html#upgrading-from-v1-8-x-to-v1-9">Upgrading from v1.8.x to v1.9+</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/upgrading.html#rollback">Rollback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/docker-compose.html">Docker Compose</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-2-configure-the-environment">Step 2: Configure the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-3-start-the-stack">Step 3: Start the Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-4-configure-keycloak">Step 4: Configure Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-5-configure-keycloak-redirect-uris">Step 5: Configure Keycloak Redirect URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-6-create-and-configure-users">Step 6: Create and Configure Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-7-log-in">Step 7: Log In</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#step-8-begin-using-openrmf">Step 8: Begin Using OpenRMF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#stopping-and-restarting">Stopping and Restarting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker-compose.html#service-composition">Service Composition</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/kubernetes.html">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#helm-chart-structure">Helm Chart Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/kubernetes.html#post-deployment">Post-Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/airgapped.html">Air-Gapped Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#step-1-pull-images-on-a-connected-machine">Step 1: Pull Images on a Connected Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#step-2-save-images-to-archive">Step 2: Save Images to Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#step-3-transfer-to-air-gapped-host">Step 3: Transfer to Air-Gapped Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#step-4-load-images">Step 4: Load Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/airgapped.html#step-5-deploy">Step 5: Deploy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/https.html">HTTPS Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-1-generate-or-obtain-certificates">Step 1: Generate or Obtain Certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-2-update-docker-compose">Step 2: Update Docker Compose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-3-update-nginx-configuration">Step 3: Update NGINX Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-4-update-keycloak-redirect-uris">Step 4: Update Keycloak Redirect URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-5-update-environment-configuration">Step 5: Update Environment Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/https.html#step-6-restart">Step 6: Restart</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/upgrading.html">Upgrading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/upgrading.html#general-upgrade-process">General Upgrade Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/upgrading.html#upgrading-from-v1-8-x-to-v1-9">Upgrading from v1.8.x to v1.9+</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/upgrading.html#rollback">Rollback</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/index.html">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html">Local Development Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#running-infrastructure-locally">Running Infrastructure Locally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#cloning-a-service-repository">Cloning a Service Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#running-a-service-locally">Running a Service Locally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/local-setup.html#developing-the-web-frontend">Developing the Web Frontend</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/building.html">Building Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/building.html#building-with-net">Building with .NET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/building.html#building-docker-images">Building Docker Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/building.html#building-all-services">Building All Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/testing.html">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/testing.html#running-unit-tests">Running Unit Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/testing.html#test-coverage">Test Coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/testing.html#integration-testing">Integration Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/testing.html#testing-nats-messaging">Testing NATS Messaging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html">Contributing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#getting-started">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#commit-messages">Commit Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#issues-and-bug-reports">Issues and Bug Reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#license">License</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/contributing.html#community">Community</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html">Repository Map</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/repository-map.html#api-services">API Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/repository-map.html#messaging-services">Messaging Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/repository-map.html#frontend">Frontend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/repository-map.html#documentation-and-infrastructure">Documentation and Infrastructure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/repository-map.html#standard-repository-structure">Standard Repository Structure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/local-setup.html">Local Development Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#running-infrastructure-locally">Running Infrastructure Locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#cloning-a-service-repository">Cloning a Service Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#running-a-service-locally">Running a Service Locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/local-setup.html#developing-the-web-frontend">Developing the Web Frontend</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/building.html">Building Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/building.html#building-with-net">Building with .NET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/building.html#building-docker-images">Building Docker Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/building.html#building-all-services">Building All Services</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/testing.html">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/testing.html#running-unit-tests">Running Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/testing.html#test-coverage">Test Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/testing.html#integration-testing">Integration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/testing.html#testing-nats-messaging">Testing NATS Messaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#commit-messages">Commit Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#issues-and-bug-reports">Issues and Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/contributing.html#community">Community</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/repository-map.html">Repository Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html#api-services">API Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html#messaging-services">Messaging Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html#frontend">Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html#documentation-and-infrastructure">Documentation and Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/repository-map.html#standard-repository-structure">Standard Repository Structure</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/index.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html">Keycloak Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/keycloak-setup.html#accessing-the-admin-console">Accessing the Admin Console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/keycloak-setup.html#creating-users">Creating Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/keycloak-setup.html#password-policy">Password Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/keycloak-setup.html#assigning-roles">Assigning Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/keycloak-setup.html#creating-users-manually">Creating Users Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/system-packages.html">System Packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/system-packages.html#creating-a-system-package">Creating a System Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/system-packages.html#system-package-dashboard">System Package Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/system-packages.html#managing-system-packages">Managing System Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html">Checklists</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#uploading-checklists">Uploading Checklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#viewing-checklists">Viewing Checklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#editing-checklists">Editing Checklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#bulk-vulnerability-editing">Bulk Vulnerability Editing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#downloading-checklists">Downloading Checklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#upgrading-checklists">Upgrading Checklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/checklists.html#vulnerability-delta-detection">Vulnerability Delta Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html">SCAP Scans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/scap-scans.html#what-is-scap-scanning">What is SCAP Scanning?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/scap-scans.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/scap-scans.html#importing-scap-results">Importing SCAP Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/scap-scans.html#supported-formats">Supported Formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/scap-scans.html#after-import">After Import</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/reports.html">Reports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/reports.html#interactive-reports">Interactive Reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/reports.html#generated-documents">Generated Documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/reports.html#nessus-patch-summary">Nessus Patch Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/reports.html#data-freshness">Data Freshness</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/keycloak-setup.html">Keycloak Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html#accessing-the-admin-console">Accessing the Admin Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html#creating-users">Creating Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html#password-policy">Password Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html#assigning-roles">Assigning Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/keycloak-setup.html#creating-users-manually">Creating Users Manually</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/system-packages.html">System Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/system-packages.html#creating-a-system-package">Creating a System Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/system-packages.html#system-package-dashboard">System Package Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/system-packages.html#managing-system-packages">Managing System Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/checklists.html">Checklists</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#uploading-checklists">Uploading Checklists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#viewing-checklists">Viewing Checklists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#editing-checklists">Editing Checklists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#bulk-vulnerability-editing">Bulk Vulnerability Editing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#downloading-checklists">Downloading Checklists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#upgrading-checklists">Upgrading Checklists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/checklists.html#vulnerability-delta-detection">Vulnerability Delta Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/scap-scans.html">SCAP Scans</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html#what-is-scap-scanning">What is SCAP Scanning?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html#importing-scap-results">Importing SCAP Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html#supported-formats">Supported Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/scap-scans.html#after-import">After Import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/reports.html">Reports</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/reports.html#interactive-reports">Interactive Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/reports.html#generated-documents">Generated Documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/reports.html#nessus-patch-summary">Nessus Patch Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/reports.html#data-freshness">Data Freshness</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/rbac.html">Role-Based Access Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/rbac.html#how-rbac-works">How RBAC Works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/rbac.html#keycloak-realm-and-client">Keycloak Realm and Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/rbac.html#role-definitions">Role Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/rbac.html#api-level-enforcement">API-Level Enforcement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html">Security Hardening</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#change-default-keycloak-admin-credentials">Change Default Keycloak Admin Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#change-default-mongodb-credentials">Change Default MongoDB Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#change-default-grafana-credentials">Change Default Grafana Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#change-default-postgresql-credentials">Change Default PostgreSQL Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#enable-https">Enable HTTPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#network-segmentation">Network Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#container-image-verification">Container Image Verification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/hardening.html#log-monitoring">Log Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/https-configuration.html">HTTPS Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/rbac.html">Role-Based Access Control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/rbac.html#how-rbac-works">How RBAC Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/rbac.html#keycloak-realm-and-client">Keycloak Realm and Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/rbac.html#role-definitions">Role Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/rbac.html#api-level-enforcement">API-Level Enforcement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/hardening.html">Security Hardening</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#change-default-keycloak-admin-credentials">Change Default Keycloak Admin Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#change-default-mongodb-credentials">Change Default MongoDB Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#change-default-grafana-credentials">Change Default Grafana Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#change-default-postgresql-credentials">Change Default PostgreSQL Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#enable-https">Enable HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#network-segmentation">Network Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#container-image-verification">Container Image Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/hardening.html#log-monitoring">Log Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/https-configuration.html">HTTPS Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Observability</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../observability/index.html">Observability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observability/prometheus.html">Prometheus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observability/prometheus.html#metrics-sources">Metrics Sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/prometheus.html#scrape-configuration">Scrape Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/prometheus.html#accessing-prometheus">Accessing Prometheus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/prometheus.html#useful-promql-queries">Useful PromQL Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html">Grafana Dashboards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#accessing-grafana">Accessing Grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#pre-configured-dashboards">Pre-Configured Dashboards</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../observability/grafana-dashboards.html#asp-net-core-default-metrics-dashboard-10427">ASP.NET Core Default Metrics (Dashboard 10427)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../observability/grafana-dashboards.html#api-controller-metrics-dashboard-10915">API Controller Metrics (Dashboard 10915)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../observability/grafana-dashboards.html#nats-server-metrics-dashboard-2279">NATS Server Metrics (Dashboard 2279)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../observability/grafana-dashboards.html#nats-client-metrics-custom">NATS Client Metrics (Custom)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#importing-additional-dashboards">Importing Additional Dashboards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#creating-custom-dashboards">Creating Custom Dashboards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#alerting">Alerting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../observability/prometheus.html">Prometheus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observability/prometheus.html#metrics-sources">Metrics Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/prometheus.html#scrape-configuration">Scrape Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/prometheus.html#accessing-prometheus">Accessing Prometheus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/prometheus.html#useful-promql-queries">Useful PromQL Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../observability/grafana-dashboards.html">Grafana Dashboards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html#accessing-grafana">Accessing Grafana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html#pre-configured-dashboards">Pre-Configured Dashboards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#asp-net-core-default-metrics-dashboard-10427">ASP.NET Core Default Metrics (Dashboard 10427)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#api-controller-metrics-dashboard-10915">API Controller Metrics (Dashboard 10915)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#nats-server-metrics-dashboard-2279">NATS Server Metrics (Dashboard 2279)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/grafana-dashboards.html#nats-client-metrics-custom">NATS Client Metrics (Custom)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html#importing-additional-dashboards">Importing Additional Dashboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html#creating-custom-dashboards">Creating Custom Dashboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability/grafana-dashboards.html#alerting">Alerting</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/software-bom.html">Software Bill of Materials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#container-runtime-required">Container Runtime (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#core-application-components">Core Application Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#observability-components">Observability Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#frontend-dependencies">Frontend Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#net-libraries-api-services">.NET Libraries (API Services)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/software-bom.html#licensing">Licensing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/nats-subjects.html">NATS Subject Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/nats-subjects.html#request-reply-subjects">Request/Reply Subjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/nats-subjects.html#publish-subscribe-subjects">Publish/Subscribe Subjects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/nats-subjects.html#checklist-events">Checklist Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/nats-subjects.html#system-events">System Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/nats-subjects.html#administrative-commands">Administrative Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/nats-subjects.html#other-events">Other Events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/environment-variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#common-variables-all-services">Common Variables (All Services)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#api-service-variables">API Service Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#keycloak-variables">Keycloak Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#mongodb-variables">MongoDB Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#grafana-variables">Grafana Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#nginx-web-frontend-variables">NGINX / Web Frontend Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#env-file">.env File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/environment-variables.html#grafana-file">.grafana File</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/changelog.html#version-1-9">Version 1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/changelog.html#version-1-8">Version 1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/changelog.html#earlier-versions">Earlier Versions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenRMF OSS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Layer</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Cingulara/openrmf-docs/blob/master/source/architecture/data-layer.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-layer">
+<h1>Data Layer<a class="headerlink" href="#data-layer" title="Link to this heading"></a></h1>
+<p>OpenRMF OSS uses MongoDB as its primary data store, with separate logical databases
+for different bounded contexts. Keycloak uses PostgreSQL for identity data. All
+databases run as containers with persistent volumes.</p>
+<section id="mongodb-databases">
+<h2>MongoDB Databases<a class="headerlink" href="#mongodb-databases" title="Link to this heading"></a></h2>
+<p>OpenRMF deploys multiple MongoDB instances (or databases within a shared instance)
+to maintain separation between services in accordance with the microservices
+architecture.</p>
+<section id="artifacts-database">
+<h3>Artifacts Database<a class="headerlink" href="#artifacts-database" title="Link to this heading"></a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Used By<span class="colon">:</span></dt>
+<dd class="field-odd"><p>openrmf-api-read, openrmf-api-save, openrmf-api-upload</p>
+</dd>
+<dt class="field-even">Collection<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Artifacts</span></code></p>
+</dd>
+</dl>
+<p>Stores checklist records including:</p>
+<ul class="simple">
+<li><p>Raw CKL or XCCDF XML content</p></li>
+<li><p>Metadata: title, description, STIG type, hostname, host IP</p></li>
+<li><p>System Group ID (foreign key to the System Package)</p></li>
+<li><p>Created and updated timestamps</p></li>
+<li><p>User information (creator, last modifier)</p></li>
+</ul>
+<p>This is the source of truth for all checklist data in the system.</p>
+</section>
+<section id="scores-database">
+<h3>Scores Database<a class="headerlink" href="#scores-database" title="Link to this heading"></a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Used By<span class="colon">:</span></dt>
+<dd class="field-odd"><p>openrmf-msg-score, openrmf-api-scoring</p>
+</dd>
+<dt class="field-even">Collection<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Scores</span></code></p>
+</dd>
+</dl>
+<p>Stores pre-computed scoring results for each checklist artifact. Each score record
+contains:</p>
+<ul class="simple">
+<li><p>Artifact ID reference</p></li>
+<li><p>Counts by status: Open, Not a Finding, Not Applicable, Not Reviewed</p></li>
+<li><p>Counts by category: CAT I, CAT II, CAT III</p></li>
+<li><p>System Group ID for system-level score aggregation</p></li>
+</ul>
+<p>Scores are written by the <code class="docutils literal notranslate"><span class="pre">openrmf-msg-score</span></code> messaging service whenever a
+checklist is created, updated, or has a vulnerability edited.</p>
+</section>
+<section id="reports-database">
+<h3>Reports Database<a class="headerlink" href="#reports-database" title="Link to this heading"></a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Used By<span class="colon">:</span></dt>
+<dd class="field-odd"><p>openrmf-msg-reports, openrmf-api-reports</p>
+</dd>
+<dt class="field-even">Collections<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nessus patch data, vulnerability data</p>
+</dd>
+</dl>
+<p>Stores denormalized, query-optimized copies of checklist and scan data for
+reporting. This database is populated through eventual consistency — the
+<code class="docutils literal notranslate"><span class="pre">openrmf-msg-reports</span></code> service subscribes to checklist and system events,
+parses raw data, and inserts structured records.</p>
+<p>Report data includes:</p>
+<ul class="simple">
+<li><p>Host-level vulnerability records parsed from CKL data</p></li>
+<li><p>Nessus plugin-level patch data parsed from <code class="docutils literal notranslate"><span class="pre">.nessus</span></code> files</p></li>
+<li><p>Aggregated vulnerability counts by status and severity</p></li>
+</ul>
+<p>Administrators can trigger a full refresh of all report data through the
+<code class="docutils literal notranslate"><span class="pre">openrmf.report.refresh.nessuspatchdata</span></code> and
+<code class="docutils literal notranslate"><span class="pre">openrmf.report.refresh.vulnerabilitydata</span></code> NATS subjects.</p>
+</section>
+<section id="templates-database">
+<h3>Templates Database<a class="headerlink" href="#templates-database" title="Link to this heading"></a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Used By<span class="colon">:</span></dt>
+<dd class="field-odd"><p>openrmf-api-template, openrmf-msg-template</p>
+</dd>
+<dt class="field-even">Collection<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Templates</span></code></p>
+</dd>
+</dl>
+<p>Stores CKL checklist templates uploaded by administrators. Templates serve as the
+structural skeleton that SCAP XCCDF scan results are matched against during import.
+Each template includes:</p>
+<ul class="simple">
+<li><p>Template title (used for matching)</p></li>
+<li><p>Raw CKL XML content</p></li>
+<li><p>STIG type and version metadata</p></li>
+</ul>
+</section>
+<section id="audit-database">
+<h3>Audit Database<a class="headerlink" href="#audit-database" title="Link to this heading"></a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Used By<span class="colon">:</span></dt>
+<dd class="field-odd"><p>openrmf-msg-audit, openrmf-api-audit</p>
+</dd>
+<dt class="field-even">Collection<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Audits</span></code></p>
+</dd>
+</dl>
+<p>Write-once log of auditable events across the system. Records include:</p>
+<ul class="simple">
+<li><p>Event type (create, update, delete, login)</p></li>
+<li><p>Affected entity type and ID</p></li>
+<li><p>User who performed the action</p></li>
+<li><p>Timestamp</p></li>
+<li><p>Summary of the change</p></li>
+</ul>
+</section>
+</section>
+<section id="default-credentials">
+<h2>Default Credentials<a class="headerlink" href="#default-credentials" title="Link to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default MongoDB credentials are intended for initial setup only. Change them
+immediately in production deployments. See <a class="reference internal" href="../security/hardening.html"><span class="doc">Security Hardening</span></a>.</p>
+</div>
+<p>The default MongoDB user configured in the Docker Compose files:</p>
+<ul class="simple">
+<li><p><strong>Username</strong>: <code class="docutils literal notranslate"><span class="pre">openrmf</span></code></p></li>
+<li><p><strong>Password</strong>: <code class="docutils literal notranslate"><span class="pre">openrmf1234!</span></code></p></li>
+<li><p><strong>Permissions</strong>: <code class="docutils literal notranslate"><span class="pre">readWriteAnyDatabase</span></code></p></li>
+<li><p><strong>Auth Source</strong>: <code class="docutils literal notranslate"><span class="pre">admin</span></code></p></li>
+</ul>
+<p>Connection string pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mongodb://openrmf:openrmf1234!@&lt;hostname&gt;/openrmf?authSource=admin
+</pre></div>
+</div>
+</section>
+<section id="postgresql-keycloak">
+<h2>PostgreSQL (Keycloak)<a class="headerlink" href="#postgresql-keycloak" title="Link to this heading"></a></h2>
+<p>Keycloak uses a PostgreSQL 16 database for storing realm configuration, user
+accounts, roles, sessions, and client registrations. This database is managed
+entirely by Keycloak and should not be modified directly.</p>
+<p>The PostgreSQL container is configured in the Docker Compose file with default
+credentials that should be changed after initial setup.</p>
+</section>
+<section id="persistent-volumes">
+<h2>Persistent Volumes<a class="headerlink" href="#persistent-volumes" title="Link to this heading"></a></h2>
+<p>All databases use Docker named volumes for data persistence. On Linux systems, these
+volumes reside under <code class="docutils literal notranslate"><span class="pre">/var/lib/docker/volumes/</span></code> (Docker) or the equivalent Podman
+storage path.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 30.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Volume</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MongoDB data volume</p></td>
+<td><p>openrmf-mongo</p></td>
+<td><p>All checklist, score, report, template, and audit data</p></td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL data volume</p></td>
+<td><p>openrmf-postgres</p></td>
+<td><p>Keycloak identity data</p></td>
+</tr>
+<tr class="row-even"><td><p>Prometheus data volume</p></td>
+<td><p>openrmf-prometheus</p></td>
+<td><p>Metrics time-series data</p></td>
+</tr>
+<tr class="row-odd"><td><p>Grafana data volume</p></td>
+<td><p>openrmf-grafana</p></td>
+<td><p>Dashboard definitions and user preferences</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="backup-and-restore">
+<h2>Backup and Restore<a class="headerlink" href="#backup-and-restore" title="Link to this heading"></a></h2>
+<p>To back up MongoDB data, use <code class="docutils literal notranslate"><span class="pre">mongodump</span></code> against the running container:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">exec</span> <span class="n">openrmf</span><span class="o">-</span><span class="n">mongo</span> <span class="n">mongodump</span> <span class="o">--</span><span class="n">archive</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span> <span class="o">--</span><span class="n">gzip</span> \
+    <span class="o">-</span><span class="n">u</span> <span class="n">openrmf</span> <span class="o">-</span><span class="n">p</span> <span class="s1">&#39;openrmf1234!&#39;</span> <span class="o">--</span><span class="n">authenticationDatabase</span> <span class="n">admin</span>
+
+<span class="n">docker</span> <span class="n">cp</span> <span class="n">openrmf</span><span class="o">-</span><span class="n">mongo</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span> <span class="o">./</span><span class="n">openrmf</span><span class="o">-</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span>
+</pre></div>
+</div>
+<p>To restore:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">cp</span> <span class="o">./</span><span class="n">openrmf</span><span class="o">-</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span> <span class="n">openrmf</span><span class="o">-</span><span class="n">mongo</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span>
+
+<span class="n">docker</span> <span class="n">exec</span> <span class="n">openrmf</span><span class="o">-</span><span class="n">mongo</span> <span class="n">mongorestore</span> <span class="o">--</span><span class="n">archive</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">backup</span><span class="o">.</span><span class="n">archive</span> <span class="o">--</span><span class="n">gzip</span> \
+    <span class="o">-</span><span class="n">u</span> <span class="n">openrmf</span> <span class="o">-</span><span class="n">p</span> <span class="s1">&#39;openrmf1234!&#39;</span> <span class="o">--</span><span class="n">authenticationDatabase</span> <span class="n">admin</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="messaging.html" class="btn btn-neutral float-left" title="NATS Messaging Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Cingulara / Tutela.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

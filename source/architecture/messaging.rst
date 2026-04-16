@@ -1,0 +1,174 @@
+============================
+NATS Messaging Architecture
+============================
+
+OpenRMF OSS uses `NATS <https://nats.io/>`_ (version 2.x) as its message bus for
+all inter-service communication. NATS provides two communication patterns that
+OpenRMF leverages: **publish/subscribe** for event-driven workflows and
+**request/reply** for synchronous data lookups.
+
+Why NATS?
+=========
+
+NATS was chosen for its lightweight footprint, low latency, and simplicity. It runs
+as a single binary with no external dependencies, making it well-suited for
+containerized deployments. The NATS server is deployed as a container within the
+Docker Compose or Kubernetes stack.
+
+Communication Patterns
+======================
+
+Request/Reply
+-------------
+
+Request/reply is used when one service needs data from another synchronously (within
+the context of handling an HTTP request). The requesting service publishes a message
+to a subject and waits for a single response.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 30 30
+
+   * - Subject
+     - Requester
+     - Responder
+   * - ``openrmf.checklist.read``
+     - Score API, Compliance API
+     - msg-system
+   * - ``openrmf.system.checklists.read``
+     - Compliance API, Read API
+     - msg-system
+   * - ``openrmf.compliance.cci``
+     - Compliance API
+     - msg-compliance
+   * - ``openrmf.compliance.cci.control``
+     - Read API, Compliance API
+     - msg-compliance
+   * - ``openrmf.compliance.cci.references``
+     - Compliance API
+     - msg-compliance
+   * - ``openrmf.controls``
+     - Various APIs
+     - msg-controls
+   * - ``openrmf.controls.search``
+     - Various APIs
+     - msg-controls
+   * - ``openrmf.template.read``
+     - Upload API
+     - msg-template
+   * - ``openrmf.score.read``
+     - Read API
+     - msg-score
+
+Publish/Subscribe
+-----------------
+
+Publish/subscribe is used for event-driven workflows where one or more services need
+to react to a state change. The publisher does not wait for or expect a response.
+
+**Checklist Lifecycle Events:**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 25 35
+
+   * - Subject
+     - Publisher
+     - Subscribers
+   * - ``openrmf.checklist.save.new``
+     - Upload API
+     - msg-score, msg-reports
+   * - ``openrmf.checklist.save.update``
+     - Upload API
+     - msg-score, msg-reports
+   * - ``openrmf.checklist.delete``
+     - Save API
+     - msg-score
+   * - ``openrmf.checklist.save.vulnerability.update``
+     - Save API
+     - msg-reports, msg-score
+
+**System Lifecycle Events:**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 25 35
+
+   * - Subject
+     - Publisher
+     - Subscribers
+   * - ``openrmf.system.update.{Id}``
+     - Save API
+     - msg-system
+   * - ``openrmf.system.count.>``
+     - Upload API, Save API
+     - msg-system
+   * - ``openrmf.system.compliance``
+     - Compliance API
+     - msg-system
+   * - ``openrmf.system.delete``
+     - Save API
+     - msg-reports
+   * - ``openrmf.system.patchscan``
+     - Save API
+     - msg-reports
+
+**Administrative Commands:**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 25 35
+
+   * - Subject
+     - Publisher
+     - Subscribers
+   * - ``openrmf.report.refresh.nessuspatchdata``
+     - Admin action
+     - msg-reports
+   * - ``openrmf.report.refresh.vulnerabilitydata``
+     - Admin action
+     - msg-reports
+
+Subject Naming Conventions
+==========================
+
+NATS subjects in OpenRMF follow a dot-separated hierarchical naming pattern::
+
+   openrmf.<domain>.<action>[.<qualifier>]
+
+- **Domain**: the bounded context (``checklist``, ``system``, ``compliance``,
+  ``controls``, ``template``, ``score``, ``report``)
+- **Action**: the operation (``save``, ``read``, ``delete``, ``update``,
+  ``refresh``, ``count``)
+- **Qualifier**: optional refinement (``new``, ``{Id}``, ``cci``, ``control``)
+
+The ``>`` wildcard in subjects like ``openrmf.system.count.>`` matches any number of
+trailing tokens, allowing a single subscription to handle multiple sub-events.
+
+Message Payloads
+================
+
+Messages are serialized as JSON strings. Typical payloads include:
+
+- **Checklist events**: the full artifact record including raw CKL/XML data and
+  metadata (system group ID, title, STIG type, hostname)
+- **System events**: system group ID and updated metadata
+- **Score events**: artifact ID and score breakdown by status and category
+- **Compliance events**: system group ID, baseline level, and PII flag
+
+Connection Management
+=====================
+
+All NATS clients implement connection monitoring with automatic reconnection. The
+NATS server URL is configured through environment variables in each service's
+container definition (typically ``NATSMETRICSURL`` for metrics and the standard NATS
+connection string for messaging).
+
+Error Handling
+==============
+
+NATS client services include error handling for message deserialization failures,
+database write failures, and connection interruptions. Failed messages are logged
+but not retried automatically (NATS does not provide built-in message persistence
+in its core server). For production deployments requiring guaranteed delivery,
+consider NATS JetStream.

@@ -1,0 +1,28 @@
+==========
+Scoring API
+==========
+
+:Repository: `Cingulara/openrmf-api-scoring <https://github.com/Cingulara/openrmf-api-scoring>`_
+:Container: ``cingulara/openrmf-api-scoring``
+:Internal Port: 8080
+:Database: MongoDB (``Scores`` collection)
+
+The Scoring API provides STIG vulnerability scoring data. It supports two modes:
+reading pre-computed scores from the database and calculating scores on the fly from
+an uploaded checklist.
+
+Score Breakdown
+===============
+
+Each score record includes:
+
+- **Status counts**: Open, Not a Finding, Not Applicable, Not Reviewed
+- **Category counts**: CAT I (high severity), CAT II (medium), CAT III (low)
+- **Total vulnerability count**
+
+Pre-computed scores are maintained by the ``openrmf-msg-score`` messaging service,
+which updates the Scores collection whenever a checklist is created, updated, or has
+a vulnerability edited.
+
+On-the-fly scoring accepts a CKL file via HTTP POST and returns the score without
+persisting it. This is useful for preview or validation workflows.
